@@ -6,6 +6,6 @@ This repository contains documentation about SDK usages and example scripts
 
 [Quick Start](user_manual/docs/quickstart.md)
 
-[Guide](user_manual/docs/guide.md)
+[Developer Guide](user_manual/docs/guide.md)
 
 [Example Scripts](examples)
