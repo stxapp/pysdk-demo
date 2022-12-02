@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+
+site_name: STX SDK User Manual
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: teal
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: green
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+  icon:
+    repo: fontawesome/brands/bitbucket
+
+repo_url: https://bitbucket.org/sportsx/stx_pysdk/
+repo_name: sportsx/stx_pysdk
+edit_uri: ""
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tilde
+  - tables
+
+
+nav:
+  - Home: index.md
+  - Quick Start: quickstart.md
+  - Developer Guide: guide.md
