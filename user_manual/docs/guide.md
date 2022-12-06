@@ -86,6 +86,7 @@ client.userProfile(selections=selections)
 ```
 ### Utilities
 Here you can see a **Selection** object is being created to pass as an argument `selections` to the userProfile function.
+If you doesn't pass the selections, you will get all the fields in return by default.
 
 Selections parameter is used to pass the fields that you want in return from the APIs.
 

@@ -782,7 +782,8 @@ if (palette && "object" == typeof palette.color) for (var key of Object.keys(pal
                     <h3 id="utilities">Utilities<a class="headerlink" href="#utilities"
                                                    title="Permanent link">&para;</a></h3>
                     <p>Here you can see a <strong>Selection</strong> object is being created to pass as an argument
-                        <code>selections</code> to the userProfile function.</p>
+                        <code>selections</code> to the userProfile function.
+                        If you doesn't pass the selections, you will get all the fields in return by default.</p>
                     <p>Selections parameter is used to pass the fields that you want in return from the APIs.</p>
                     <p>Now the question is how would you know which fields are available in the response of the API.
                         We have a utility method <code>get_return_fields</code> that takes the name of the operation as
