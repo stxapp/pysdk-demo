@@ -302,13 +302,10 @@ To initialize the client:
 ```python title="examples/stxchannelclient/init.py"
 email = "<email address>"
 password = "<password>"
-client = StxClient()
-client.login(params={"email": email, "password": password})
 
 channel_client = StxChannelClient()
+channel_client.login(params={"email": email, "password": password})
 ```
-In the above code you can see that we use **StxClient** to initiate login
-and then initiate the **StxChannelClient** object.
 !!! note
     First of all, needs to know that the User management is built on singleton approach,
     It means that no matter how many StxClient or StxChannelClient objects you create all of them

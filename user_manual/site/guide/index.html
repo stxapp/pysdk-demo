@@ -1327,20 +1327,18 @@ if (palette && "object" == typeof palette.color) for (var key of Object.keys(pal
                     <div class="highlight"><span class="filename">examples/stxchannelclient/init.py</span>
                         <pre><span></span><code><span class="n">email</span> <span class="o">=</span> <span class="s2">&quot;&lt;email address&gt;&quot;</span>
 <span class="n">password</span> <span class="o">=</span> <span class="s2">&quot;&lt;password&gt;&quot;</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">StxClient</span><span class="p">()</span>
-<span class="n">client</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span
+
+<span class="n">channel_client</span> <span class="o">=</span> <span class="n">StxChannelClient</span><span
+                                    class="p">()</span>
+<span class="n">channel_client</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span
                                     class="n">params</span><span class="o">=</span><span class="p">{</span><span
                                     class="s2">&quot;email&quot;</span><span class="p">:</span> <span
                                     class="n">email</span><span class="p">,</span> <span
                                     class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="n">password</span><span
                                     class="p">})</span>
-
-<span class="n">channel_client</span> <span class="o">=</span> <span class="n">StxChannelClient</span><span
-                                    class="p">()</span>
 </code></pre>
                     </div>
-                    In the above code you can see that we use <strong>StxClient</strong> to initiate login
-                    and then initiate the <strong>StxChannelClient</strong> object.</p>
+                    </p>
                     <div class="admonition note">
                         <p class="admonition-title">Note</p>
                         <p>First of all, needs to know that the User management is built on singleton approach,

@@ -1,8 +1,7 @@
-from stxsdk import StxChannelClient, StxClient
+from stxsdk import StxChannelClient
 
 email = "<email address>"
 password = "<password>"
-client = StxClient()
-client.login(params={"email": email, "password": password})
 
 channel_client = StxChannelClient()
+channel_client.login(params={"email": email, "password": password})
