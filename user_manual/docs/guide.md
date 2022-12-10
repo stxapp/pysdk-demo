@@ -10,8 +10,25 @@ from stxsdk import StxClient
 
 client = StxClient()
 ```
+
+!!! note
+    By default the API environment is set to staging.
+    In order to change it you can either set it as environment variable with
+    key name `API_ENV` or pass it as parameter while initializing the client object.
+
+Let's say you want to initiate it for production environment.
+Set `API_ENV` environment variable as `production` or pass it in the class initialization.
+```python
+from stxsdk import StxClient
+
+client = StxClient(env="production")
+```
+
 ### Authentication
-Before performing any operation you must authenticate first
+Before performing any operation you must authenticate first, if the provided credentials are correct the
+login API will store the tokens automatically to be used for authenticated APIs otherwise it will return 
+authentication failure response.
+
 ```python title="examples/stxclient/login.py"
 from stxsdk import StxClient
 
@@ -19,7 +36,7 @@ client = StxClient()
 
 email = "<email address>"
 password = "<password>"
-client.login(
+result = client.login(
     params={"email": email, "password": password},
 )
 ```
@@ -69,7 +86,7 @@ selections = Selection(
     "username",
     "id",
 )
-client.userProfile(selections=selections)
+result = client.userProfile(selections=selections)
 ```
 ```json title="Response"
 {"data": {"userProfile": {"accountId": "6a7fb2e7-1413-4b8b-b126-6a8eaab128a8",
@@ -98,7 +115,7 @@ all the available response values with their names and types.
 from stxsdk import StxClient
 
 client = StxClient()
-client.get_return_fields("userProfile")
+result = client.get_return_fields("userProfile")
 ```
 ```json title="Response"
 {
@@ -116,7 +133,7 @@ Now what about the response with nested fields, checkout the following example:
 from stxsdk import StxClient
 
 client = StxClient()
-client.get_return_fields("marketInfos")
+result = client.get_return_fields("marketInfos")
 ```
 ```json title="Response"
 {
@@ -175,7 +192,7 @@ You can also use the following function to get the list of available operations
 from stxsdk import StxClient
 
 client = StxClient()
-client.get_operations()
+result = client.get_operations()
 ```
 
 ### Market Infos
@@ -208,7 +225,7 @@ selections = Selection(
     # inline selection object
     bids=Selection("price", "quantity"),
 )
-client.marketInfos(selections=selections)
+result = client.marketInfos(selections=selections)
 ```
 ### Confirm Order
 ```python title="examples/stxclient/confirm_order.py"
@@ -235,7 +252,7 @@ params = {
 selections = Selection(
     "errors", order=Selection("id", "totalValue", "status", "action", "clientOrderId")
 )
-client.confirmOrder(params=params, selections=selections)
+result = client.confirmOrder(params=params, selections=selections)
 ```
 
 ### Cancel Order
@@ -251,7 +268,7 @@ client.login(
 )
 params = {"orderId": "85b670f1-19b7-4378-8b91-6b4d7cc4a46b"}
 selections = Selection("status")
-client.cancelOrder(params=params, selections=selections)
+result = client.cancelOrder(params=params, selections=selections)
 ```
 
 ### Trade History
@@ -278,7 +295,7 @@ selections = Selection(
         "status",
     ),
 )
-client.myOrderHistory(selections=selections)
+result = client.myOrderHistory(selections=selections)
 ```
 
 
@@ -306,6 +323,13 @@ password = "<password>"
 channel_client = StxChannelClient()
 channel_client.login(params={"email": email, "password": password})
 ```
+
+Same as mentioned above you can set environment for StxChannelClient also via Environment variable or by passing as argument
+
+```python
+channel_client = StxChannelClient(env="production")
+```
+
 !!! note
     First of all, needs to know that the User management is built on singleton approach,
     It means that no matter how many StxClient or StxChannelClient objects you create all of them
