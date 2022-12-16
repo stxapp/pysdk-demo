@@ -654,25 +654,6 @@ if (palette && "object" == typeof palette.color) for (var key of Object.keys(pal
 </code></pre>
                     </div>
                     </p>
-                    <div class="admonition note">
-                        <p class="admonition-title">Note</p>
-                        <p>By default the API environment is set to staging.
-                            In order to change it you can either set it as environment variable with
-                            key name <code>API_ENV</code> or pass it as parameter while initializing the client object.
-                        </p>
-                    </div>
-                    <p>Let's say you want to initiate it for production environment.
-                        Set <code>API_ENV</code> environment variable as <code>production</code> or pass it in the class
-                        initialization.
-                    <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span
-                            class="nn">stxsdk</span> <span class="kn">import</span> <span class="n">StxClient</span>
-
-<span class="n">client</span> <span class="o">=</span> <span class="n">StxClient</span><span class="p">(</span><span
-                                class="n">env</span><span class="o">=</span><span
-                                class="s2">&quot;production&quot;</span><span class="p">)</span>
-</code></pre>
-                    </div>
-                    </p>
                     <h3 id="authentication">Authentication<a class="headerlink" href="#authentication"
                                                              title="Permanent link">&para;</a></h3>
                     <p>Before performing any operation you must authenticate first, if the provided credentials are

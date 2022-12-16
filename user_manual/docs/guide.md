@@ -11,19 +11,6 @@ from stxsdk import StxClient
 client = StxClient()
 ```
 
-!!! note
-    By default the API environment is set to staging.
-    In order to change it you can either set it as environment variable with
-    key name `API_ENV` or pass it as parameter while initializing the client object.
-
-Let's say you want to initiate it for production environment.
-Set `API_ENV` environment variable as `production` or pass it in the class initialization.
-```python
-from stxsdk import StxClient
-
-client = StxClient(env="production")
-```
-
 ### Authentication
 Before performing any operation you must authenticate first, if the provided credentials are correct the
 login API will store the tokens automatically to be used for authenticated APIs otherwise it will return 
