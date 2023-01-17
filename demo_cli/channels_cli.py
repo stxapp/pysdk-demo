@@ -96,6 +96,15 @@ def main():
     # getting the method attribute from the client object
     method = getattr(CHANNEL_CLIENT, method_name)
     # running the channel method asynchronously using asyncio pool
+    # following the available events:
+    #    on_open        it triggers when connected with the server
+    #    on_message     it triggers when server send any message
+    #    on_close       it triggers when connection to the server is closed
+    #    on_error       it triggers when any error send by the server or exception occurs
+    #    default        all of the above events are optional to be set, if you want a
+    #                   generic method to be run as default you can pass as it with default kwarg
+    # here you can see that am only passing functions for on_open and on_message events
+    # with a default function to handle other events
     asyncio.run(
         method(
             on_open=on_open,
