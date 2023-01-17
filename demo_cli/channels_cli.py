@@ -11,15 +11,32 @@ logger = logging.getLogger(__file__)
 CHANNEL_NAMES = list(CHANNELS)
 CHANNEL_CLIENT = StxChannelClient()
 
+# Available channels:
+#    portfolio
+#    market_info
+#    active_trades
+#    active_orders
+#    active_settlements
+#    active_positions
 
-async def consumer(response):
-    # Here response would be the response passed by the listener of the async client
-    if response["closed"]:
-        print(response["message"])
-    elif response["data"] is None:
-        print("No data return from server.")
-    else:
-        pprint(response["data"][4])
+
+async def on_open(message):
+    # message passed by the listener of the async client when connect with the server
+    # you can perform any initial operation on this event
+    print(f"Successfully connected with the server with message, {message}")
+
+
+async def on_message(message):
+    # message passed by the listener of the async client when server send the message
+    # you can perform any post operation on this event
+    print(message["data"][4])
+
+
+async def default(message):
+    # message passed by the listener of the async client when connect for any other event
+    # it's a default function that will be trigger for the events whose relative consumers
+    # functions are not passed you can perform any operation on this event as default case
+    print(message)
 
 
 def get_arguments():
@@ -79,7 +96,13 @@ def main():
     # getting the method attribute from the client object
     method = getattr(CHANNEL_CLIENT, method_name)
     # running the channel method asynchronously using asyncio pool
-    asyncio.run(method(consumer))
+    asyncio.run(
+        method(
+            on_open=on_open,
+            on_message=on_message,
+            default=default,
+        )
+    )
 
 
 # It's the start of the file, this commands represents that this file will execute from here
