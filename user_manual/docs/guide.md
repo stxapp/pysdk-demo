@@ -311,10 +311,8 @@ channel_client = StxChannelClient()
 channel_client.login(params={"email": email, "password": password})
 ```
 
-Same as mentioned above you can set environment for StxChannelClient also via Environment variable or by passing as argument
-
 ```python
-channel_client = StxChannelClient(env="production")
+channel_client = StxChannelClient()
 ```
 
 !!! note
@@ -332,6 +330,15 @@ You can learn more about `asyncio` on its [official documentation](https://docs.
     It's a function or service that would be triggered by the async client, means that the channels' message will
     automatically hand off to a message listener which passes to the consumer that has been registered.
     The client consumes the message when a session thread invokes the onMessage() method of the message listener object.
+    Our ChannelClient accepts different consumers for each event. The available events are the following:
+
+| Event         | Description                                                                  |
+|:--------------|:-----------------------------------------------------------------------------|
+| `on_open`     | It triggers when connected with the server                                   |
+| `on_message`  | It triggers when connection to the server is closed                          |
+| `on_close`    | It triggers when connection to the server is closed                          |
+| `on_error`    | It triggers when any error send by the server or exception occurs            |
+| `default`     | all of the above events are optional to be set, if you want a generic method to be run as default you can pass as it with default kwarg|
 
 #### Response Syntax
 ```json title="Success Message"
@@ -368,7 +375,20 @@ Below is the sample data of the portfolio channel
 import asyncio
 from examples.stxchannelclient.init import channel_client
 
-async def consumer(response):
+async def on_open(response):
+    # message passed by the listener of the async client when connect with the server
+    # you can perform any initial operation on this event
+    print(f"Successfully connected with the server with message, {response}")
+
+
+async def on_message(response):
+    # message passed by the listener of the async client when server send the message
+    # you can perform any post operation on this event
+    print(response["data"])
+
+
+async def default(response):
+    # Here response would be the response passed by the listener of the async client
     if response["closed"]:
         print(response["message"])
     elif response["data"] is None:
@@ -376,10 +396,18 @@ async def consumer(response):
     else:
         print(response["data"][4])
 
-async def read_portfolio():
-    await channel_client.portfolio_join(consumer)
-
-asyncio.run(read_portfolio())
+# StxChannelClient provides the channel function as an asynchronous tasks, in order to execute
+# them async in a continuous loop using the asyncio module's event loop,
+# asynio is Python's built-in package that provides a foundation and API for running and managing coroutines.
+# here you can see that am only passing functions for on_open and on_message events
+# with a default function to handle other events
+asyncio.run(
+    channel_client.portfolio_join(
+        on_open=on_open,
+        on_message=on_message,
+        default=default,
+    )
+)
 ```
 
 ### Market Info Channel
@@ -388,7 +416,20 @@ asyncio.run(read_portfolio())
 import asyncio
 from examples.stxchannelclient.init import channel_client
 
-async def consumer(response):
+async def on_open(response):
+    # message passed by the listener of the async client when connect with the server
+    # you can perform any initial operation on this event
+    print(f"Successfully connected with the server with message, {response}")
+
+
+async def on_message(response):
+    # message passed by the listener of the async client when server send the message
+    # you can perform any post operation on this event
+    print(response["data"])
+
+
+async def default(response):
+    # Here response would be the response passed by the listener of the async client
     if response["closed"]:
         print(response["message"])
     elif response["data"] is None:
@@ -396,10 +437,19 @@ async def consumer(response):
     else:
         print(response["data"][4])
 
-async def read_market_info():
-    await channel_client.market_info_join(consumer)
 
-asyncio.run(read_market_info())
+# StxChannelClient provides the channel function as an asynchronous tasks, in order to execute
+# them async in a continuous loop using the asyncio module's event loop,
+# asynio is Python's built-in package that provides a foundation and API for running and managing coroutines.
+# here you can see that am only passing functions for on_open and on_message events
+# with a default function to handle other events
+asyncio.run(
+    channel_client.market_info_join(
+        on_open=on_open,
+        on_message=on_message,
+        default=default,
+    )
+)
 ```
 
 ### Active Trades Channel
@@ -408,7 +458,20 @@ asyncio.run(read_market_info())
 import asyncio
 from examples.stxchannelclient.init import channel_client
 
-async def consumer(response):
+async def on_open(response):
+    # message passed by the listener of the async client when connect with the server
+    # you can perform any initial operation on this event
+    print(f"Successfully connected with the server with message, {response}")
+
+
+async def on_message(response):
+    # message passed by the listener of the async client when server send the message
+    # you can perform any post operation on this event
+    print(response["data"])
+
+
+async def default(response):
+    # Here response would be the response passed by the listener of the async client
     if response["closed"]:
         print(response["message"])
     elif response["data"] is None:
@@ -416,10 +479,19 @@ async def consumer(response):
     else:
         print(response["data"][4])
 
-async def read_active_trades():
-    await channel_client.active_trades_join(consumer)
 
-asyncio.run(read_active_trades())
+# StxChannelClient provides the channel function as an asynchronous tasks, in order to execute
+# them async in a continuous loop using the asyncio module's event loop,
+# asynio is Python's built-in package that provides a foundation and API for running and managing coroutines.
+# here you can see that am only passing functions for on_open and on_message events
+# with a default function to handle other events
+asyncio.run(
+    channel_client.active_trades_join(
+        on_open=on_open,
+        on_message=on_message,
+        default=default,
+    )
+)
 ```
 
 ### Active Orders Channel
@@ -428,7 +500,20 @@ asyncio.run(read_active_trades())
 import asyncio
 from examples.stxchannelclient.init import channel_client
 
-async def consumer(response):
+async def on_open(response):
+    # message passed by the listener of the async client when connect with the server
+    # you can perform any initial operation on this event
+    print(f"Successfully connected with the server with message, {response}")
+
+
+async def on_message(response):
+    # message passed by the listener of the async client when server send the message
+    # you can perform any post operation on this event
+    print(response["data"])
+
+
+async def default(response):
+    # Here response would be the response passed by the listener of the async client
     if response["closed"]:
         print(response["message"])
     elif response["data"] is None:
@@ -436,10 +521,19 @@ async def consumer(response):
     else:
         print(response["data"][4])
 
-async def read_active_orders():
-    await channel_client.active_orders_join(consumer)
 
-asyncio.run(read_active_orders())
+# StxChannelClient provides the channel function as an asynchronous tasks, in order to execute
+# them async in a continuous loop using the asyncio module's event loop,
+# asynio is Python's built-in package that provides a foundation and API for running and managing coroutines.
+# here you can see that am only passing functions for on_open and on_message events
+# with a default function to handle other events
+asyncio.run(
+    channel_client.active_orders_join(
+        on_open=on_open,
+        on_message=on_message,
+        default=default,
+    )
+)
 ```
 
 ### Active Settlement Channel
@@ -448,7 +542,20 @@ asyncio.run(read_active_orders())
 import asyncio
 from examples.stxchannelclient.init import channel_client
 
-async def consumer(response):
+async def on_open(response):
+    # message passed by the listener of the async client when connect with the server
+    # you can perform any initial operation on this event
+    print(f"Successfully connected with the server with message, {response}")
+
+
+async def on_message(response):
+    # message passed by the listener of the async client when server send the message
+    # you can perform any post operation on this event
+    print(response["data"])
+
+
+async def default(response):
+    # Here response would be the response passed by the listener of the async client
     if response["closed"]:
         print(response["message"])
     elif response["data"] is None:
@@ -456,10 +563,19 @@ async def consumer(response):
     else:
         print(response["data"][4])
 
-async def read_active_settlements():
-    await channel_client.active_settlements_join(consumer)
 
-asyncio.run(read_active_settlements())
+# StxChannelClient provides the channel function as an asynchronous tasks, in order to execute
+# them async in a continuous loop using the asyncio module's event loop,
+# asynio is Python's built-in package that provides a foundation and API for running and managing coroutines.
+# here you can see that am only passing functions for on_open and on_message events
+# with a default function to handle other events
+asyncio.run(
+    channel_client.active_settlements_join(
+        on_open=on_open,
+        on_message=on_message,
+        default=default,
+    )
+)
 ```
 
 ### Active Positions Channel
@@ -468,7 +584,20 @@ asyncio.run(read_active_settlements())
 import asyncio
 from examples.stxchannelclient.init import channel_client
 
-async def consumer(response):
+async def on_open(response):
+    # message passed by the listener of the async client when connect with the server
+    # you can perform any initial operation on this event
+    print(f"Successfully connected with the server with message, {response}")
+
+
+async def on_message(response):
+    # message passed by the listener of the async client when server send the message
+    # you can perform any post operation on this event
+    print(response["data"])
+
+
+async def default(response):
+    # Here response would be the response passed by the listener of the async client
     if response["closed"]:
         print(response["message"])
     elif response["data"] is None:
@@ -476,8 +605,17 @@ async def consumer(response):
     else:
         print(response["data"][4])
 
-async def read_active_positions():
-    await channel_client.active_positions_join(consumer)
 
-asyncio.run(read_active_positions())
+# StxChannelClient provides the channel function as an asynchronous tasks, in order to execute
+# them async in a continuous loop using the asyncio module's event loop,
+# asynio is Python's built-in package that provides a foundation and API for running and managing coroutines.
+# here you can see that am only passing functions for on_open and on_message events
+# with a default function to handle other events
+asyncio.run(
+    channel_client.active_positions_join(
+        on_open=on_open,
+        on_message=on_message,
+        default=default,
+    )
+)
 ```
