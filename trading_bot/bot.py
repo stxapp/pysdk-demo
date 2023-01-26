@@ -122,12 +122,13 @@ class TradingBot:
         # returns the market's probability
         return self.market["probability"]
 
-    def __compute_price(self, probability):
+    def __compute_price(self):
         """
         This function is computing the price using the market's current probability
         on which the order would be placed.
-        :param probability: market's current probability
         """
+        # extract the current probability of the picked market
+        probability = self.__extract_market_probability()
         print(
             f"Computing the price for order creation, market current probability is {probability}"
         )
@@ -316,10 +317,8 @@ class TradingBot:
         self.__populate_markets()
         # Randomly pick a market to which the order will be placed
         self.__pick_random_market()
-        # extract the current probability of the picked market
-        market_probability = self.__extract_market_probability()
         # compute the price on which the order will be placed
-        price = self.__compute_price(market_probability)
+        price = self.__compute_price()
         # get the quantity of the shares for the order
         quantity = self.__get_quantity()
         # Post the order with the generated quantity and price
