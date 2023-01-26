@@ -9,3 +9,5 @@ This repository contains documentation about SDK usages and example scripts
 [Developer Guide](user_manual/docs/guide.md)
 
 [Example Scripts](examples)
+
+[Trading Bot Example](user_manual/docs/trading_bot.md)
