@@ -48,3 +48,4 @@ nav:
   - Home: index.md
   - Quick Start: quickstart.md
   - Developer Guide: guide.md
+  - Trading Bot Example: trading_bot.md

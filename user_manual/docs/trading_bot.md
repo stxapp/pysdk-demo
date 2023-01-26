@@ -20,6 +20,21 @@ The objective of this bot is to perform the following routine:
        - Cancel the created order.
        - Post new order with new price.
 
+Before the implementation we are going to need the SDK.
+### Installation
+
+Install the latest release via pip:
+
+    pip install stx-pysdk
+
+The SDK is built for python 3 only.
+If your system has both python2 and python3 manager installed then by default "pip" refers to python2 manager,
+so in order to install for python3 "pip3" would be used
+
+    pip3 install stx-pysdk
+
+### Implementation
+
 We will start with the creating a project with name `trading_bot`.
 And create a python file with name `bot.py` in which we are creating a class `TradingBot`.
 This class will contain all the operations of the bot.
@@ -71,21 +86,7 @@ class TradingBot:
         ...
 ```
 
-Now its time to define these methods. Before the implementation we are going to need the SDK.
-### Installation
-
-Install the latest release via pip:
-
-    pip install stx-pysdk
-
-The SDK is built for python 3 only.
-If your system has both python2 and python3 manager installed then by default "pip" refers to python2 manager,
-so in order to install for python3 "pip3" would be used
-
-    pip3 install stx-pysdk
-
-
-After installing, we'll now use the provided StxClient by importing it from the installed SDK.
+Now its time to define these methods. We'll now use the provided StxClient by importing it from the installed SDK.
 
 ```python
 from stxsdk import StxClient
